@@ -13,19 +13,18 @@
 <div class="row">
 
     <!-- vendors field -->
-    <div class="col-md-3 col-lg-2">
+    <div class="col-md-4 col-lg-3 col-lg-2">
         <div class="form-group">
             {!! Form::label('vendor', 'Vendor') !!}
             {!! Form::select('vendor', $vendors, old('vendor', request()->get('vendor')), [
                 'id' => 'vendor',
-                'class' => 'form-control',
-                'placeholder' => 'Please select',
+                'class' => 'd-block w-100 select2',
             ]) !!}
         </div>
     </div>
 
-    <!-- approvied field -->
-    <div class="col-md-3 col-lg-2">
+    <!-- approved field -->
+    <div class="col-md-4 col-lg-3 col-lg-2">
         <div class="form-group">
             {!! Form::label('approved', 'Approve') !!}
             {!! Form::select(
@@ -37,15 +36,14 @@
                 old('approved', request()->get('approved')),
                 [
                     'id' => 'approved',
-                    'class' => 'form-control',
-                    'placeholder' => 'Please select',
+                    'class' => 'd-block w-100 select2',
                 ],
             ) !!}
         </div>
     </div>
 
     <!-- status field -->
-    <div class="col-md-3 col-lg-2">
+    <div class="col-md-4 col-lg-3 col-lg-2">
         <div class="form-group">
             {!! Form::label('status', 'Status') !!}
             {!! Form::select(
@@ -57,15 +55,14 @@
                 old('status', request()->get('status')),
                 [
                     'id' => 'status',
-                    'class' => 'form-control',
-                    'placeholder' => 'Please select',
+                    'class' => 'd-block w-100 select2',
                 ],
             ) !!}
         </div>
     </div>
 
     <!-- type field -->
-    <div class="col-md-3 col-lg-2 mb-0">
+    <div class="col-md-4 col-lg-3 col-lg-2 mb-0">
         <div class="form-group">
             {!! Form::label('type', 'Type') !!}
             {!! Form::select(
@@ -81,14 +78,14 @@
                 old('type', request()->get('type')),
                 [
                     'id' => 'type',
-                    'class' => 'form-control',
-                    'placeholder' => 'Please select',
+                    'class' => 'd-block w-100 select2',
                 ],
             ) !!}
         </div>
     </div>
 
 </div>
+
 <!-- button submit -->
 <div class="form-group">
     <button class="btn btn-primary mt-0" type="submit">
@@ -98,3 +95,11 @@
 </div>
 
 {!! Form::close() !!}
+
+@push('css')
+    <style>
+        .form-group{
+            margin-bottom: 15px
+        }
+    </style>
+@endpush

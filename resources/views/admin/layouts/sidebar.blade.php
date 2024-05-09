@@ -54,7 +54,8 @@
                     'admin.dashboard.image-gallery.*',
                     'admin.dashboard.product-variant.*',
                     'admin.dashboard.product-variant-item.*',
-                    'admin.dashboard.seller-product.*'
+                    'admin.dashboard.seller-product.*',
+                    'admin.dashboard.coupon.*'
                 ]) }}">
 
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
@@ -66,6 +67,11 @@
                     <li class="{{ setActive(['admin.dashboard.brand.*']) }}">
                         <a class="nav-link" href="{{ route('admin.dashboard.brand.index') }}">
                             Brands
+                        </a>
+                    </li>
+                    <li class="{{ setActive(['admin.dashboard.coupon.*']) }}">
+                        <a class="nav-link" href="{{ route('admin.dashboard.coupon.index') }}">
+                            Coupons
                         </a>
                     </li>
                     <li class="{{ setActive(['admin.dashboard.product.*', 'admin.dashboard.image-gallery.*', 'admin.dashboard.product-variant.*', 'admin.dashboard.product-variant-item.*']) }}">
@@ -82,7 +88,7 @@
             </li>
 
             <!-- manage website -->
-            <li class="dropdown {{ setActive(['admin.dashboard.slider.*']) }}">
+            <li class="dropdown {{ setActive(['admin.dashboard.slider.*','admin.dashboard.flash-sale.*']) }}">
 
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="fas fa-columns"></i>
@@ -91,6 +97,7 @@
 
                 <ul class="dropdown-menu">
                     <li class="{{ setActive(['admin.dashboard.slider.*']) }}"><a class="nav-link" href="{{ route('admin.dashboard.slider.index') }}">Sliders</a></li>
+                    <li class="{{ setActive(['admin.dashboard.flash-sale.*']) }}"><a class="nav-link" href="{{ route('admin.dashboard.flash-sale.index') }}">Flash Sale</a></li>
                 </ul>
             </li>
 
@@ -107,6 +114,13 @@
                 </ul>
             </li>
 
+            <!-- general setting -->
+            <li>
+                <a class="nav-link" href="{{ route('admin.dashboard.settings.index') }}">
+                    <i class="fas fa-columns"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
         </ul>
     </aside>
 </div>

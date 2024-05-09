@@ -6,17 +6,25 @@ use App\Helpers\ImageUpload;
 use App\Models\Backend\Product;
 use App\Models\Backend\ProductVariant;
 use App\Models\Backend\ProductVariantItem;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductObserver
 {
 
+    public function isAdmin()
+    {
+        $user = auth()->user();
+        return $user->role == 'admin' ? true : false;
+    }
+
     public function creating(Product $product)
     {
         $product->slug = str::slug($product->name);
         $product->vendor_id = Auth()->user()->vendor->id;
+
+        if($this->isAdmin()){
+            $product->id_approved = 'approved';
+        }
 
         self::uploadImage($product);
     }
@@ -51,8 +59,8 @@ class ProductObserver
                 "storagePath" => $productPath,
                 "old_image" => $product->thumb_image,
                 "default" => $product->thumb_image,
-                "height" => null,
-                "width" => 800,
+                "height" => 250,
+                "width" => null,
                 "quality" => 100
             ]);
 

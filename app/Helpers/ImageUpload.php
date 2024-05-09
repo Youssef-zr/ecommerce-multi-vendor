@@ -19,8 +19,12 @@ class ImageUpload
         $height = $imgProps['height'] ?? null;
         $quality = $imgProps['quality'] ?? 100;
 
-        if ($width != null and $height == null) {
+        if ($width != null or $height == null) {
             $img->resize($width, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        } else if ($width == null or $height != null) {
+            $img->resize(null, $height, function ($constraint) {
                 $constraint->aspectRatio();
             });
         } else {

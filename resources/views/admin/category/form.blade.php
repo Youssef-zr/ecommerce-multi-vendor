@@ -37,7 +37,7 @@
             old('status'),
             [
             'id' => 'status',
-            'class' => 'form-control',
+            'class' => 'd-block w-100 select2',
             'required' => 'required',
             ],
             ) !!}
@@ -61,6 +61,7 @@
 
 <script>
     $(() => {
+        $('#target').iconpicker();
         $("input[name='icon']").val($("#icon").data('icon'))
     })
 </script>

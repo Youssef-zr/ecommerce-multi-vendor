@@ -121,6 +121,8 @@ class Brandcontroller extends Controller
     public static function uploadBrandImage($brand)
     {
         if (request()->hasFile("image")) {
+            makeDir('uploads/brands');
+
             $imageProps = [
                 'file' => request()->file('image'),
                 "storagePath" => "uploads/brands",

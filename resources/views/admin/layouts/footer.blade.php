@@ -14,6 +14,8 @@
 <script src="{{ url('backend/assets/modules/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
 <script src="{{ url('backend/assets/modules/summernote/summernote-bs4.js') }}"></script>
 <script src="{{ url('backend/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
+<script src="{{ url('backend/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ url('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 
 <!-- toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -21,7 +23,6 @@
 <!-- datatables -->
 <script src="https://cdn.datatables.net/2.0.0/js/dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.0/js/dataTables.bootstrap5.min.js"></script>
-
 
 <!-- sweet alert cdn -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -38,11 +39,11 @@
 
 <!--  Set an error toast, with a title -->
 @if ($errors->any())
-@foreach ($errors->all() as $error)
-@php
-toastr()->error($error, 'Oops!');
-@endphp
-@endforeach
+    @foreach ($errors->all() as $error)
+        @php
+            toastr()->error($error, 'Oops!');
+        @endphp
+    @endforeach
 @endif
 
 <!-- dynamic delete -->
@@ -72,7 +73,8 @@ toastr()->error($error, 'Oops!');
                             'X-CSRF-TOKEN': csrfToken // Set the CSRF token in the request headers
                         },
                         success(response, status, xhr) {
-                            if (xhr.status >= 200 && xhr.status < 300 && response.success == 'ok') {
+                            if (xhr.status >= 200 && xhr.status < 300 && response
+                                .success == 'ok') {
                                 Swal.fire({
                                     title: "Deleted!",
                                     text: "Your file has been deleted.",
@@ -90,7 +92,7 @@ toastr()->error($error, 'Oops!');
                             }
                         },
                         error: function(xhr, status, error) {
-                            if(xhr.status == 409){
+                            if (xhr.status == 409) {
                                 error = xhr.responseJSON.msg;
                             }
 

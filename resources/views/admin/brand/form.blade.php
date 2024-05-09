@@ -43,7 +43,7 @@
             old('status'),
             [
             'id' => 'status',
-            'class' => 'form-control',
+            'class' => 'd-block w-100 select2',
             'required' => 'required',
             ],
             ) !!}
@@ -67,7 +67,7 @@
             old('is_featured'),
             [
             'id' => 'is_featured',
-            'class' => 'form-control',
+            'class' => 'd-block w-100 select2',
             'required' => 'required',
             ],
             ) !!}

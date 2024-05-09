@@ -49,6 +49,8 @@ class VendorController extends Controller
         $user = request()->user();
 
         if (request()->hasFile('image')) {
+            mkdir('uploads/vendors');
+
             if (File::exists(public_path($user->image))) {
                 File::delete(public_path($user->image));
             }

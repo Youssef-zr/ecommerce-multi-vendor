@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{{ url('backend/assets/modules/weather-icon/css/weather-icons.min.css') }}">
     <link rel="stylesheet" href="{{ url('backend/assets/modules/weather-icon/css/weather-icons-wind.min.css') }}">
     <link rel="stylesheet" href="{{ url('backend/assets/modules/summernote/summernote-bs4.css') }}">
+    <link rel="stylesheet" href="{{ url('backend/assets/modules/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ url('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css') }}">
 
     <!-- toastr -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">

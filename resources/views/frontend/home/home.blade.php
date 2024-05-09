@@ -150,11 +150,11 @@
 
 
 <!--============================
-        FLASH SELL START
+        FLASH SALE START
     ==============================-->
-@include('frontend.home.sections.flash-sell')
+@include('frontend.home.sections.flash-sale')
 <!--============================
-        FLASH SELL END
+        FLASH SALE END
     ==============================-->
 
 

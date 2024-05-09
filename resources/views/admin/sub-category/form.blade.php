@@ -9,8 +9,7 @@
             old('category_id'),
             [
             'id' => 'category_id',
-            'class' => 'form-control',
-            "placeholder"=>'please select',
+            'class' => 'd-block w-100 select2',
             'required' => 'required'
             ],
             ) !!}
@@ -46,7 +45,7 @@
             old('status'),
             [
             'id' => 'status',
-            'class' => 'form-control',
+            'class' => 'd-block w-100 select2',
             'required' => 'required',
             ],
             ) !!}

@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
-    ProfileController,
+    Frontend\ProfileController,
     Frontend\UserController,
     Frontend\HomeController,
+    Frontend\FrontProductController,
 };
+use App\Http\Controllers\Frontend\FlashSaleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,12 +32,21 @@ require __DIR__ . '/auth.php';
 
 // User dashboard routes
 Route::group(['prefix' => 'user/dashboard', "as" => "user.dashboard", 'middleware' => ['auth', 'verified']], function () {
-
     Route::get('/', [UserController::class, 'dashboard'])->name('.index');
     Route::get('profile', [UserController::class, 'edit'])->name('.profile.index');
     Route::put('profile', [UserController::class, 'update'])->name('.profile.update');
     Route::put('update-password', [UserController::class, 'updatePassword'])->name('.password.update');
 });
 
-// Home controller
-Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
+// frontend pages
+Route::group(['as'=>'frontend.'],function(){
+
+    // Home controller
+    Route::get('/', [HomeController::class, 'index'])->name('index');
+
+    // flash sale route
+    Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale');
+
+    // product detail route
+    Route::get('product-details/{slug}',[FrontProductController::class,'productDetail'])->name('product_detail');
+});

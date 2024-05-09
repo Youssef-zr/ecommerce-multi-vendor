@@ -95,4 +95,5 @@ class ProductController extends Controller
         toastr()->success('Product deleted successfully!', 'Ok!');
         return response()->json(['success' => 'ok'], 200);
     }
+
 }

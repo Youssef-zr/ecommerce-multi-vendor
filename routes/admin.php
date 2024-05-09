@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\{
     Brandcontroller,
     CategoryController,
     ChildCategoryController,
+    CouponController,
     ProductController,
     ProductImageGalleryController,
     ProductVariantController,
@@ -15,6 +16,8 @@ use App\Http\Controllers\Backend\{
     SellerProductController,
     SliderController,
     SubCategoryController,
+    FlashSaleController,
+    GeneralSettingController
 };
 
 /**
@@ -64,21 +67,33 @@ Route::group(['prefix' => 'dashboard', 'as' => '.dashboard.', 'middleware' => ['
 
     // product variant item (options)
     Route::get('/product-variant-item/{productId}/{variantId}', [ProductVariantItemController::class, 'index'])->name('product-variant-item.index');
-
     Route::get('/product-variant-item/{variantId}', [ProductVariantItemController::class, 'create'])->name('product-variant-item.create');
     Route::post('/product-variant-item/{variantId}', [ProductVariantItemController::class, 'store'])->name('product-variant-item.store');
-
     Route::get('/product-variant-item-edit/{variantItemId}', [ProductVariantItemController::class, 'edit'])->name('product-variant-item.edit');
     Route::put('/product-variant-item-update/{variantItemId}', [ProductVariantItemController::class, 'update'])->name('product-variant-item.update');
-
     Route::delete('/product-variant-item/{variantItemId}', [ProductVariantItemController::class, 'destroy'])->name('product-variant-item.destroy');
-
     Route::put('/product-variant-item-status', [ProductVariantItemController::class, 'changeStatus'])->name('product-variant-item.change-status');
 
-    // seller product show pending and active and filter and more...
-    Route::get('seller-product', [SellerProductController::class,'index'])->name('seller-product.index');
-    Route::get('seller-product-filter',[SellerProductController::class,'index'])->name('seller-product.filter');
-    Route::put('product-change-approved', [SellerProductController::class,'changeApproved'])->name('seller-product.change-approved');
+    // coupons routes
+    Route::put('/coupon/change-status',[CouponController::class,'changeStatus'])->name('coupon.change-status');
+    Route::resource('/coupon', CouponController::class);
+
+    // seller product show pending and approve status and filter and more...
+    Route::get('seller-product', [SellerProductController::class, 'index'])->name('seller-product.index');
+    Route::get('seller-product-filter', [SellerProductController::class, 'index'])->name('seller-product.filter');
+    Route::put('change-approve-status', [SellerProductController::class, 'changeApproved'])->name('seller-product.change-approved');
+
+    // flash sale routes
+    Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale.index');
+    Route::put('flash-sale', [FlashSaleController::class, 'update'])->name('flash-sale.update');
+    Route::put('flash-sale/add-procuct', [FlashSaleController::class, 'addProduct'])->name('flash-sale.add-product');
+    Route::put('flash-sale/change-product-status', [FlashSaleController::class, 'changeStatus'])->name('flash-sale.change-product-status');
+    Route::put('flash-sale/show-home-pdocut', [FlashSaleController::class, 'showHomeStatus'])->name('flash-sale.show-home-status');
+    Route::delete('flash-sale/delete-product/{id}', [FlashSaleController::class, 'deleteProduct'])->name('flash-sale.delete-product');
+
+    // generale settings route
+    Route::get('settings', [GeneralSettingController::class, 'index'])->name("settings.index");
+    Route::put('general-settings-update/{id}', [GeneralSettingController::class, 'updateGeneralSetting'])->name("settings.update");
 });
 
 

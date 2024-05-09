@@ -162,6 +162,9 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -188,6 +191,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         "Form" => Collective\Html\FormFacade::class,
         "Html" => Collective\Html\HtmlFacade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
     ])->toArray(),
 
 ];

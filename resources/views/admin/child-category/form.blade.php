@@ -6,8 +6,7 @@
             {!! Form::label('category_id', 'Select Category *', ['class' => 'form-label']) !!}
             {!! Form::select('category_id', $categories, old('category_id'), [
                 'id' => 'category_id',
-                'class' => 'form-control main-category',
-                'placeholder' => 'please select',
+                'class' => 'd-block w-100 select2 main-category',
                 'required' => 'required',
             ]) !!}
 
@@ -31,8 +30,7 @@
             {!! Form::label('sub_category_id', 'Select Sub Category *', ['class' => 'form-label']) !!}
             {!! Form::select('sub_category_id', $subCategories, old('sub_category_id'), [
                 'id' => 'sub_category_id',
-                'class' => 'form-control',
-                'placeholder' => 'please select',
+                'class' => 'd-block w-100 select2',
                 'required' => 'required',
             ]) !!}
 
@@ -67,7 +65,7 @@
                 old('status'),
                 [
                     'id' => 'status',
-                    'class' => 'form-control',
+                    'class' => 'd-block w-100 select2',
                     'required' => 'required',
                 ],
             ) !!}

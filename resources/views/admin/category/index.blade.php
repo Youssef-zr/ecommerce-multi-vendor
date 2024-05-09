@@ -21,7 +21,7 @@
                         <div class="card-header-action">
                             <a href="{{ route('admin.dashboard.category.create') }}" class="btn btn-primary">
                                 <i class="fa fa-plus"></i>
-                                Add new
+                                Add New
                             </a>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                     toastr.success("Status updated successfully", 'OK!');
                 },
                 error(err) {
-                    toastr.error('There is an error please try again later!!', 'Error!');
+                    toastr.success('There is an error please try again later!!', 'Error!');
                 }
             })
         })
