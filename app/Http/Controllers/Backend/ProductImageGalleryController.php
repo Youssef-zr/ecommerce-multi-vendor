@@ -47,8 +47,8 @@ class ProductImageGalleryController extends Controller
                     "storagePath" => $productPath,
                     "old_image" => $product->image,
                     "default" => $product->image,
-                    "height" => null,
-                    "width" => 800,
+                    "height" => 350,
+                    "width" => null,
                     "quality" => 100
                 ]);
 

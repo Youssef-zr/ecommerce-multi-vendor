@@ -22,7 +22,8 @@
             <li class="menu-header">Website</li>
 
             <!-- manage categories -->
-            <li class="dropdown {{ setActive([
+            <li
+                class="dropdown {{ setActive([
                     'admin.dashboard.category.*',
                     'admin.dashboard.sub-category.*',
                     'admin.dashboard.child-category.*',
@@ -37,7 +38,8 @@
                     <li class="{{ setActive(['admin.dashboard.category.*']) }}">
                         <a class="nav-link" href="{{ route('admin.dashboard.category.index') }}">Categories</a>
                     </li>
-                    <li class="{{ setActive(['admin.dashboard.sub-category.*']) }}"><a class="nav-link" href="{{ route('admin.dashboard.sub-category.index') }}">Sub Categories</a>
+                    <li class="{{ setActive(['admin.dashboard.sub-category.*']) }}"><a class="nav-link"
+                            href="{{ route('admin.dashboard.sub-category.index') }}">Sub Categories</a>
                     </li>
                     <li class="{{ setActive(['admin.dashboard.child-category.*']) }}">
                         <a class="nav-link" href="{{ route('admin.dashboard.child-category.index') }}">Child
@@ -48,14 +50,14 @@
             </li>
 
             <!-- manage products -->
-            <li class="dropdown {{ setActive([
+            <li
+                class="dropdown {{ setActive([
                     'admin.dashboard.brand.*',
                     'admin.dashboard.product.*',
                     'admin.dashboard.image-gallery.*',
                     'admin.dashboard.product-variant.*',
                     'admin.dashboard.product-variant-item.*',
                     'admin.dashboard.seller-product.*',
-                    'admin.dashboard.coupon.*'
                 ]) }}">
 
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
@@ -69,12 +71,8 @@
                             Brands
                         </a>
                     </li>
-                    <li class="{{ setActive(['admin.dashboard.coupon.*']) }}">
-                        <a class="nav-link" href="{{ route('admin.dashboard.coupon.index') }}">
-                            Coupons
-                        </a>
-                    </li>
-                    <li class="{{ setActive(['admin.dashboard.product.*', 'admin.dashboard.image-gallery.*', 'admin.dashboard.product-variant.*', 'admin.dashboard.product-variant-item.*']) }}">
+                    <li
+                        class="{{ setActive(['admin.dashboard.product.*', 'admin.dashboard.image-gallery.*', 'admin.dashboard.product-variant.*', 'admin.dashboard.product-variant-item.*']) }}">
                         <a class="nav-link" href="{{ route('admin.dashboard.product.index') }}">
                             Products
                         </a>
@@ -88,7 +86,7 @@
             </li>
 
             <!-- manage website -->
-            <li class="dropdown {{ setActive(['admin.dashboard.slider.*','admin.dashboard.flash-sale.*']) }}">
+            <li class="dropdown {{ setActive(['admin.dashboard.slider.*']) }}">
 
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="fas fa-columns"></i>
@@ -96,13 +94,14 @@
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li class="{{ setActive(['admin.dashboard.slider.*']) }}"><a class="nav-link" href="{{ route('admin.dashboard.slider.index') }}">Sliders</a></li>
-                    <li class="{{ setActive(['admin.dashboard.flash-sale.*']) }}"><a class="nav-link" href="{{ route('admin.dashboard.flash-sale.index') }}">Flash Sale</a></li>
+                    <li class="{{ setActive(['admin.dashboard.slider.*']) }}"><a class="nav-link"
+                            href="{{ route('admin.dashboard.slider.index') }}">Sliders</a></li>
                 </ul>
             </li>
 
             <!-- manage vendor -->
-            <li class="dropdown {{ setActive(['admin.dashboard.vendor-profile.*']) }}">
+            <li
+                class="dropdown {{ setActive(['admin.dashboard.vendor-profile.*', 'admin.dashboard.flash-sale.*', 'admin.dashboard.coupon.*', 'admin.dashboard.shipping-rule.*']) }}">
 
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="fas fa-columns"></i>
@@ -110,7 +109,26 @@
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li class="{{ setActive(['admin.dashboard.vendor-profile.*']) }}"><a class="nav-link" href="{{ route('admin.dashboard.vendor-profile.edit') }}">Vendor Profile</a></li>
+                    <li class="{{ setActive(['admin.dashboard.flash-sale.*']) }}">
+                        <a class="nav-link" href="{{ route('admin.dashboard.flash-sale.index') }}">
+                            Flash Sale
+                        </a>
+                    </li>
+                    <li class="{{ setActive(['admin.dashboard.coupon.*']) }}">
+                        <a class="nav-link" href="{{ route('admin.dashboard.coupon.index') }}">
+                            Coupons
+                        </a>
+                    </li>
+                    <li class="{{ setActive(['admin.dashboard.shipping-rule.*']) }}">
+                        <a class="nav-link" href="{{ route('admin.dashboard.shipping-rule.index') }}">
+                            Shipping Rule
+                        </a>
+                    </li>
+                    <li class="{{ setActive(['admin.dashboard.vendor-profile.*']) }}">
+                        <a class="nav-link" href="{{ route('admin.dashboard.vendor-profile.edit') }}">
+                            Vendor Profile
+                        </a>
+                    </li>
                 </ul>
             </li>
 

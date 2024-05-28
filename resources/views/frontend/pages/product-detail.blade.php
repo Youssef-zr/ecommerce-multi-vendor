@@ -1,8 +1,11 @@
 @extends('frontend.layouts.master')
+
+@section('title')
+    - {{ $product->name }}
+@endsection
+
 @section('content')
-    <!--============================
-                                                        BREADCRUMB START
-                                                    ==============================-->
+    <!-- BREADCRUMB START -->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -19,14 +22,9 @@
             </div>
         </div>
     </section>
-    <!--============================
-                                                        BREADCRUMB END
-                                                    ==============================-->
+    <!-- BREADCRUMB END -->
 
-
-    <!--============================
-                                                        PRODUCT DETAILS START
-                                                    ==============================-->
+    <!-- PRODUCT DETAILS START -->
     <section id="wsus__product_details">
         <div class="container">
             <div class="wsus__details_bg">
@@ -96,19 +94,24 @@
                                 </div>
                             @endif
 
+                            <!-- Start form add to cart -->
+                            {!! Form::open(['method' => 'POST', 'class' => 'add-cart-form']) !!}
+
+                            {!! Form::hidden('product_id', $product->id) !!}
+
                             @if ($product->variants->count() > 0)
                                 <div class="wsus__selectbox">
                                     <div class="row">
-
                                         @foreach ($product->variants as $productVariant)
                                             @if ($productVariant->variantItems->count() > 0)
                                                 <div class="col-xl-6 col-sm-6">
                                                     <h5 class="mb-2">{{ $productVariant->name }}:</h5>
-                                                    <select class="select_2" name="state">
-                                                        @foreach ($productVariant->variantItems as $productVariantItem)
-                                                            <option
-                                                                {{ $productVariantItem->is_default ? 'selected' : '' }}>
-                                                                {{ $productVariantItem->name }}</option>
+                                                    <select class="select_2" name="variantItems[]">
+                                                        @foreach ($productVariant->variantItems as $variantItem)
+                                                            <option value="{{ $variantItem->id }}"
+                                                                {{ $variantItem->is_default ? 'selected' : '' }}>
+                                                                {{ $variantItem->name }}
+                                                                ({!! $setting->currency_icon !!}{{ $variantItem->price }})</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -120,19 +123,23 @@
 
                             <div class="wsus__quentity">
                                 <h5>quantity :</h5>
-                                <form class="select_number">
-                                    <input class="number_area" type="text" min="1" max="100"
+                                <div class="select_number">
+                                    <input class="number_area"name="qty" type="text" min="1" max="100"
                                         value="1" />
-                                </form>
+                                </div>
                             </div>
 
                             <ul class="wsus__button_area">
-                                <li><a class="add_cart" href="#">add to cart</a></li>
+                                <li><button type="submit" class="add_cart" href="#">add to cart</button></li>
                                 <li><a class="buy_now" href="#">buy now</a></li>
                                 <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                 <li><a href="#"><i class="far fa-random"></i></a></li>
                             </ul>
-                            @if ($product->brand->name != null)
+
+                            {!! Form::close() !!}
+                            <!-- End form add to cart -->
+
+                            @if ($product->brand?->name != null)
                                 <p class="brand_model"><span>Brand :</span> {{ $product->brand->name }}</p>
                             @endif
 
@@ -140,7 +147,7 @@
                                 <h5>share :</h5>
 
                                 <ul class="d-flex">
-                                    {!! $shareLinks !!}
+                                    {!! $product->shareProductLinks() !!}
                                 </ul>
                             </div>
                         </div>
@@ -429,9 +436,7 @@
             </div>
         </div>
     </section>
-    <!--============================
-              PRODUCT DETAILS END
-             ==============================-->
+    <!-- PRODUCT DETAILS END -->
 @endsection
 
 @push('js')
@@ -450,14 +455,3 @@
     </script>
 @endpush
 
-@push('css')
-    <style>
-        #social-links ul {
-            display: flex;
-        }
-
-        #social-links ul li a span{
-            color: white !important
-        }
-    </style>
-@endpush

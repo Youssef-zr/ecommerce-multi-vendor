@@ -1,5 +1,9 @@
 @extends('admin.layouts.master')
 
+@section('title')
+    - Edit Variant
+@endsection
+
 @section('content')
     <section class="section">
         <div class="section-header">

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Settings;
+namespace App\Http\Requests\Backend\ShippingRule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateGeneralSettingRequest extends FormRequest
+class StoreShippingRuleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,11 @@ class UpdateGeneralSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "site_name" => 'required|max:255',
-            "layout" => 'required|in:RTL,LTR',
-            "contact_email" => 'required|email',
-            "currency_name" => 'required|max:255',
-            "time_zone" => 'required|max:255',
+            'name' => 'required|unique:shipping_rules,name',
+            'type' => 'required|string|in:flat_cost,min_cost',
+            'min_cost' => 'sometimes|nullable|numeric',
+            'cost' => 'required|numeric',
+            'status' => 'required|string|in:active,inactive'
         ];
     }
 }

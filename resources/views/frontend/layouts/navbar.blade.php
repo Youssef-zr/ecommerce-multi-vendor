@@ -1,6 +1,4 @@
-<!--============================
-        MAIN MENU START
-    ==============================-->
+<!-- MAIN MENU START -->
 
 @php
     $categories = \App\Models\Backend\Category::whereStatus('active')
@@ -15,6 +13,7 @@
         ])
         ->get();
 @endphp
+
 <nav class="wsus__main_menu d-none d-lg-block">
     <div class="container">
         <div class="row">
@@ -55,7 +54,7 @@
                     </ul>
 
                     <ul class="wsus__menu_item">
-                        <li><a class="active" href="index.html">home</a></li>
+                        <li><a class="active" href="{{ route('frontend.index') }}">home</a></li>
                         <li><a href="product_grid_view.html">shop <i class="fas fa-caret-down"></i></a>
                             <div class="wsus__mega_menu">
                                 <div class="row">
@@ -147,22 +146,21 @@
                     </ul>
                     <ul class="wsus__menu_item wsus__menu_item_right">
                         <li><a href="contact.html">contact</a></li>
-                        <li><a href="dsahboard.html">my account</a></li>
-                        <li><a href="{{ route('login') }}">login</a></li>
+                        @if (auth()->check())
+                            <li><a href="{{ route('user.dashboard.profile.index') }}">my account</a></li>
+                        @else
+                            <li><a href="{{ route('login') }}">login</a></li>
+                        @endif
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </nav>
-<!--============================
-        MAIN MENU END
-    ==============================-->
+<!-- MAIN MENU END -->
 
 
-<!--============================
-        MOBILE MENU START
-    ==============================-->
+<!-- MOBILE MENU START -->
 <section id="wsus__mobile_menu">
     <span class="wsus__mobile_menu_close"><i class="fal fa-times"></i></span>
     <ul class="wsus__mobile_menu_header_icon d-inline-flex">
@@ -225,7 +223,7 @@
             <div class="wsus__mobile_menu_main_menu">
                 <div class="accordion accordion-flush" id="accordionFlushExample2">
                     <ul>
-                        <li><a href="index.html">home</a></li>
+                        <li><a href="{{ route('frontend.index') }}">home</a></li>
                         <li><a href="#" class="accordion-button collapsed" data-bs-toggle="collapse"
                                 data-bs-target="#flush-collapseThree" aria-expanded="false"
                                 aria-controls="flush-collapseThree">shop</a>
@@ -271,6 +269,4 @@
         </div>
     </div>
 </section>
-<!--============================
-        MOBILE MENU END
-    ==============================-->
+<!-- MOBILE MENU END -->

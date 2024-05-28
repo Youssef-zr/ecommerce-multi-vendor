@@ -5,7 +5,6 @@ namespace App\Models\Backend;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
@@ -88,5 +87,36 @@ class Product extends Model
     public function vendor()
     {
         return $this->hasOne(Vendor::class, 'id', 'vendor_id');
+    }
+
+    // Method to check if the price has a discount and return the price
+    public function getPrice()
+    {
+        // Implement your logic here to check if a discount is applicable
+        $hasDiscount = hasDiscount($this); // Assume this method checks if a discount is applicable
+
+        if ($hasDiscount) {
+            return $this->offer_price;
+        }
+
+        // If no discount is applicable, return the original price
+        return $this->price;
+    }
+
+    // social media product share links
+    public function shareProductLinks()
+    {
+        $shareComponent = \Share::page(
+            route('frontend.product_detail', $this->slug),
+            $this->short_description,
+        )
+            ->facebook()
+            ->twitter()
+            ->linkedin()
+            ->telegram()
+            ->whatsapp()
+            ->reddit();
+
+        return $shareComponent;
     }
 }

@@ -1,5 +1,9 @@
 @extends('admin.layouts.master')
 
+@section('title')
+    - New Brand
+@endsection
+
 @section('content')
     <section class="section">
         <div class="section-header">
@@ -25,7 +29,7 @@
                                 'route' => 'admin.dashboard.brand.store',
                                 'enctype' => 'multipart/form-data',
                             ]) !!}
-                            
+
                             @include('admin.brand.form')
 
                             {!! Form::submit('Create', ['class' => 'btn btn-primary pull-right']) !!}

@@ -17,24 +17,7 @@ class FrontProductController extends Controller
             }]);
         }])->whereSlug($slug)->whereStatus('active')->first();
 
-        $shareLinks = $this->shareSocialMediaLinks($product);
-
-        return view('frontend.pages.product-detail', compact('product', 'shareLinks'));
+        return view('frontend.pages.product-detail', compact('product'));
     }
 
-    public function shareSocialMediaLinks($product)
-    {
-        $shareComponent = \Share::page(
-            route('frontend.product_detail', $product->slug),
-            $product->short_description,
-        )
-            ->facebook()
-            ->twitter()
-            ->linkedin()
-            ->telegram()
-            ->whatsapp()
-            ->reddit();
-
-        return $shareComponent;
-    }
 }

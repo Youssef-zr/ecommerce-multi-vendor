@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\profile\UpdatePasswordRequest;
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\Backend\Profile\ProfileUpdateRequest;
+use App\Http\Requests\Backend\Profile\UpdatePasswordRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Settings\UpdateGeneralSettingRequest;
+use App\Http\Requests\Backend\Settings\UpdateGeneralSettingRequest;
 use App\Models\Backend\Setting;
 use Illuminate\Http\Request;
 

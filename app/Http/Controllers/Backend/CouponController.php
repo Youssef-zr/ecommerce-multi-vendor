@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\CouponDataTable;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Coupon\StoreCouponRequest;
-use App\Http\Requests\Coupon\UpdateCouponRequest;
+use App\Http\Requests\Backend\Coupon\StoreCouponRequest;
+use App\Http\Requests\Backend\Coupon\UpdateCouponRequest;
 use App\Models\Backend\Coupon;
 use Illuminate\Http\Request;
 
@@ -38,6 +38,7 @@ class CouponController extends Controller
         toastr('Coupon Adedd Successfully!', 'success', 'Success');
         return to_route('admin.dashboard.coupon.index');
     }
+
     public function changeStatus(Request $request)
     {
         $coupon = Coupon::findOrFail($request->id);
@@ -47,6 +48,7 @@ class CouponController extends Controller
 
         return response()->json(['status' => 'ok'], 200);
     }
+
     /**
      * Display the specified resource.
      */

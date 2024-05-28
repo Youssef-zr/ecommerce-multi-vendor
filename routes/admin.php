@@ -17,7 +17,8 @@ use App\Http\Controllers\Backend\{
     SliderController,
     SubCategoryController,
     FlashSaleController,
-    GeneralSettingController
+    GeneralSettingController,
+    ShippingRuleController
 };
 
 /**
@@ -77,6 +78,10 @@ Route::group(['prefix' => 'dashboard', 'as' => '.dashboard.', 'middleware' => ['
     // coupons routes
     Route::put('/coupon/change-status',[CouponController::class,'changeStatus'])->name('coupon.change-status');
     Route::resource('/coupon', CouponController::class);
+
+    // shippin gule routes
+    Route::put('/shipping-rule/change-status',[ShippingRuleController::class,'changeStatus'])->name('shipping-rule.change-status');
+    Route::resource('/shipping-rule', ShippingRuleController::class);
 
     // seller product show pending and approve status and filter and more...
     Route::get('seller-product', [SellerProductController::class, 'index'])->name('seller-product.index');

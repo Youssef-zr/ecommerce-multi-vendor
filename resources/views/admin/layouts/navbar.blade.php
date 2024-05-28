@@ -29,19 +29,19 @@
                 </div>
                 <div class="search-item">
                     <a href="#">
-                        <img class="mr-3 rounded" width="30" src="assets/img/products/product-3-50.png" alt="product">
+                        <img class="mr-3 rounded" width="30" src="{{ asset('backend/assets/img/products/product-3-50.png') }}" alt="product">
                         oPhone S9 Limited Edition
                     </a>
                 </div>
                 <div class="search-item">
                     <a href="#">
-                        <img class="mr-3 rounded" width="30" src="assets/img/products/product-2-50.png" alt="product">
+                        <img class="mr-3 rounded" width="30" src="{{ asset('backend/assets/img/products/product-2-50.png') }}" alt="product">
                         Drone X2 New Gen-7
                     </a>
                 </div>
                 <div class="search-item">
                     <a href="#">
-                        <img class="mr-3 rounded" width="30" src="assets/img/products/product-1-50.png" alt="product">
+                        <img class="mr-3 rounded" width="30" src="{{ asset('backend/assets/img/products/product-1-50.png') }}" alt="product">
                         Headphone Blitz
                     </a>
                 </div>
@@ -202,14 +202,10 @@
                 <a href="{{ route('admin.profile.index') }}" class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Profile
                 </a>
-                <a href="features-activities.html" class="dropdown-item has-icon">
-                    <i class="fas fa-bolt"></i> Activities
-                </a>
-                <a href="features-settings.html" class="dropdown-item has-icon">
+                <a href="{{ route('admin.dashboard.settings.index') }}" class="dropdown-item has-icon">
                     <i class="fas fa-cog"></i> Settings
                 </a>
                 <div class="dropdown-divider"></div>
-
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

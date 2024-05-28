@@ -9442,5 +9442,14 @@ li.page-item >  .page-link:hover{
 
 #sticky_pro_zoom
 {
-    z-index: 999 !important;
+    position: relative;
+    z-index: 9 !important;
+}
+
+#social-links ul {
+    display: flex;
+}
+
+#social-links ul li a span {
+    color: white !important
 }

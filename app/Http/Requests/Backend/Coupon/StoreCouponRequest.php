@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Coupon;
+namespace App\Http\Requests\Backend\Coupon;
 
 use Illuminate\Foundation\Http\FormRequest;
 

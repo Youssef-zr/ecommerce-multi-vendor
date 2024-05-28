@@ -132,20 +132,44 @@
 <script src="{{ asset('frontend/js/jquery.classycountdown.js') }}"></script>
 <!-- toaster -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<!-- sweet alert cdn -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('frontend/js/swal-custom.js') }}"></script>
+
+<!-- custom cart function -->
+<script src="{{ asset('frontend/js/cart.js') }}"></script>
 
 @stack('js')
 
 <!--main/custom js-->
 <script src="{{ asset('frontend/js/main.js') }}"></script>
 
+
 <!--  Set an error toast, with a title -->
-@if($errors->any())
-@foreach($errors->all() as $error)
-@php
-toastr()->error($error, 'Oops!')
-@endphp
-@endforeach
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        @php
+            toastr()->error($error, 'Oops!');
+        @endphp
+    @endforeach
 @endif
+
+<script>
+    $(() => {
+
+        // add to cart
+        $('.add-cart-form').on('submit', function(e) {
+            e.preventDefault();
+
+            const formData = $(this).serialize();
+            const url = "{{ route('frontend.cart.add-to-cart') }}";
+
+            addToCart(url,formData);
+        })
+
+    })
+</script>
+
 </body>
 
 </html>

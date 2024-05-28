@@ -45,19 +45,85 @@
 <script src="{{ asset('frontend/js/jquery.classycountdown.js') }}"></script>
 <!-- toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<!-- sweet alert cdn -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!--main/custom js-->
 <script src="{{ asset('frontend/js/main.js') }}"></script>
 
 <!--  Set an error toast, with a title -->
-@if($errors->any())
-@foreach($errors->all() as $error)
-@php
-toastr()->error($error, 'Oops!')
-@endphp
-@endforeach
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        @php
+            toastr()->error($error, 'Oops!');
+        @endphp
+    @endforeach
 @endif
 
+<!-- dynamic delete -->
+<script>
+    $(() => {
+
+        $("body").on('click', '.delete-btn', function(e) {
+            e.preventDefault();
+            const url = $(this).attr('href');
+            const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        url,
+                        type: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken // Set the CSRF token in the request headers
+                        },
+                        success(response, status, xhr) {
+                            if (xhr.status >= 200 && xhr.status < 300 && response
+                                .success == 'ok') {
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    icon: "success"
+                                });
+
+                                window.location.reload();
+
+                            } else if (response.status == 'error') {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: "Something went wrong!",
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            if (xhr.status == 409) {
+                                error = xhr.responseJSON.msg;
+                            }
+
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: error,
+                                // footer: 'Conflict'
+                            });
+                        }
+                    })
+
+                }
+            });
+        })
+    })
+</script>
 </body>
 
 </html>

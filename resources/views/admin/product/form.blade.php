@@ -226,7 +226,6 @@
     {!! Form::label('long_description', 'Long description *', ['class' => 'form-label']) !!}
     {!! Form::textarea('long_description', old('long_description'), [
         'class' => 'form-control summernote',
-        'required' => 'required',
     ]) !!}
     @if ($errors->any())
         <code>{{ $errors->first('long_description') }}</code>

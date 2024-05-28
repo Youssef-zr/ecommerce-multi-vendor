@@ -29,13 +29,15 @@
 
 <!-- Page Specific JS File -->
 <script src="{{ url('backend/assets/js/custom.js') }}"></script>
-<script src="{{ url('backend/assets/js/page/index-0.js') }}"></script>
+<!-- <script src="{{ url('backend/assets/js/page/index-0.js') }}"></script> -->
 
 <!-- Template JS File -->
 <script src="{{ url('backend/assets/js/scripts.js') }}"></script>
 
+
 <!-- custom file script -->
 @stack('js')
+
 
 <!--  Set an error toast, with a title -->
 @if ($errors->any())

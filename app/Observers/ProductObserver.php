@@ -23,7 +23,7 @@ class ProductObserver
         $product->vendor_id = Auth()->user()->vendor->id;
 
         if($this->isAdmin()){
-            $product->id_approved = 'approved';
+            $product->is_approved = 'approved';
         }
 
         self::uploadImage($product);
@@ -59,7 +59,7 @@ class ProductObserver
                 "storagePath" => $productPath,
                 "old_image" => $product->thumb_image,
                 "default" => $product->thumb_image,
-                "height" => 250,
+                "height" => 350,
                 "width" => null,
                 "quality" => 100
             ]);

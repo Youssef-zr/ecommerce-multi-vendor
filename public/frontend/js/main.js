@@ -577,5 +577,5 @@ $(function () {
         prevArrow: '<i class="fas fa-long-arrow-alt-left prv_arr"></i>',
     });
 
-
 });
+

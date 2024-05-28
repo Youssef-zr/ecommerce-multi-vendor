@@ -1,9 +1,11 @@
 @extends('frontend.layouts.master')
 
+@section('title')
+    - Flash Sale
+@endsection
+
 @section('content')
-    <!--============================
-                BREADCRUMB START
-            ==============================-->
+    <!-- BREADCRUMB START -->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -19,14 +21,10 @@
             </div>
         </div>
     </section>
-    <!--============================
-                BREADCRUMB END
-            ==============================-->
+    <!-- BREADCRUMB END -->
 
 
-    <!--============================
-            DAILY DEALS DETAILS START
-        ==============================-->
+    <!-- DAILY DEALS DETAILS START -->
     <section id="wsus__daily_deals">
         <div class="container">
             <div class="wsus__offer_details_area">
@@ -82,14 +80,14 @@
                                     <span
                                         class="wsus__minus">-{{ percentageDiscount($product->price, $product->offer_price) }}%</span>
                                 @endif
-                                <a class="wsus__pro_link" href="{{ route('frontend.product_detail',$product->slug) }}">
+                                <a class="wsus__pro_link" href="{{ route('frontend.product_detail', $product->slug) }}">
                                     <img src="{{ url($product->thumb_image) }}" alt="{{ $product->name }}"
                                         class="img-fluid w-100 img_1" />
                                     <img src="{{ url(get2ndProductImage($product)) }}" alt="{{ $product->name }}"
                                         class="img-fluid w-100 img_2" />
                                 </a>
                                 <ul class="wsus__single_pro_icon">
-                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#product-id-{{ $product->id }}"><i
                                                 class="far fa-eye"></i></a></li>
                                     <li><a href="#"><i class="far fa-heart"></i></a></li>
                                     <li><a href="#"><i class="far fa-random"></i></a>
@@ -104,11 +102,13 @@
                                         <i class="fas fa-star-half-alt"></i>
                                         <span>(133 review)</span>
                                     </p>
-                                    <a class="wsus__pro_name" href="#">{{ $product->name }}</a>
+                                    <a class="wsus__pro_name"
+                                        href="{{ route('frontend.product_detail', $product->slug) }}">{{ $product->name }}</a>
 
                                     @if (hasDiscount($product))
                                         <p class="wsus__price">{!! $setting->currency_icon !!}{{ $product->offer_price }}
-                                            <del>{!! $setting->currency_icon !!}{{ $product->price }}</del></p>
+                                            <del>{!! $setting->currency_icon !!}{{ $product->price }}</del>
+                                        </p>
                                     @else
                                         <p class="wsus__price">{!! $setting->currency_icon !!}{{ $product->price }}</p>
                                     @endif
@@ -132,24 +132,33 @@
             </div>
         </div>
     </section>
-    <!--============================
-            DAILY DEALS DETAILS END
-        ==============================-->
+    <!--  DAILY DEALS DETAILS END -->
+
+    <!-- PRODUCT MODAL VIEW START -->
+    @foreach ($flashSaleItems as $item)
+        @php
+            $product = $item->product;
+        @endphp
+
+        @include('frontend.home.sections.modal-product-details', compact('product'))
+    @endforeach
+    <!-- PRODUCT MODAL VIEW END -->
 @endsection
 
 
 @push('js')
     <script>
         $(() => {
-            let date = new Date("{{ $flashSale->end_date }}");
-
-            // default example
-            simplyCountdown('.simply-countdown-one', {
-                year: date.getFullYear(),
-                month: date.getMonth() + 1,
-                day: date.getDate(),
-                enableUtc: false
-            });
+            const date = "{{ $flashSale->end_date ?? '' }}";
+            if (date !== '') {
+                // default example
+                simplyCountdown('.simply-countdown-one', {
+                    year: date.getFullYear(),
+                    month: date.getMonth() + 1,
+                    day: date.getDate(),
+                    enableUtc: false
+                });
+            }
         })
     </script>
 @endpush

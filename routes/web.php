@@ -1,13 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{
-    Frontend\ProfileController,
-    Frontend\UserController,
-    Frontend\HomeController,
-    Frontend\FrontProductController,
+use App\Http\Controllers\Frontend\{
+    CartController,
+    ProfileController,
+    UserController,
+    HomeController,
+    FrontProductController,
+    FlashSaleController,
+    UserAdressController
 };
-use App\Http\Controllers\Frontend\FlashSaleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,11 +33,12 @@ require __DIR__ . '/auth.php';
 
 
 // User dashboard routes
-Route::group(['prefix' => 'user/dashboard', "as" => "user.dashboard", 'middleware' => ['auth', 'verified']], function () {
-    Route::get('/', [UserController::class, 'dashboard'])->name('.index');
-    Route::get('profile', [UserController::class, 'edit'])->name('.profile.index');
-    Route::put('profile', [UserController::class, 'update'])->name('.profile.update');
-    Route::put('update-password', [UserController::class, 'updatePassword'])->name('.password.update');
+Route::group(['prefix' => 'user/dashboard', "as" => "user.dashboard.", 'middleware' => ['auth', 'verified']], function () {
+    Route::get('/', [UserController::class, 'dashboard'])->name('index');
+    Route::get('profile', [UserController::class, 'edit'])->name('profile.index');
+    Route::put('profile', [UserController::class, 'update'])->name('profile.update');
+    Route::put('update-password', [UserController::class, 'updatePassword'])->name('password.update');
+    Route::resource('adress',UserAdressController::class);
 });
 
 // frontend pages
@@ -49,4 +52,11 @@ Route::group(['as'=>'frontend.'],function(){
 
     // product detail route
     Route::get('product-details/{slug}',[FrontProductController::class,'productDetail'])->name('product_detail');
+
+    // cart routes
+    Route::post('add-to-cart',[CartController::class,'addToCart'])->name('cart.add-to-cart');
+    Route::get('cart-details',[CartController::class,'cartDetails'])->name('cart.cart-details');
+    Route::post('update-product-qty',[CartController::class,'updateProductQty'])->name('cart.update-product-qty');
+    Route::get('clear-cart',[CartController::class,'clearCart'])->name('cart.clear-items');
+    Route::get('delete-cart-item',[CartController::class,'deleteCartItem'])->name('cart.delete-item');
 });

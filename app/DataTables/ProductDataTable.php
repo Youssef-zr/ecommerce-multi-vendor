@@ -68,7 +68,7 @@ class ProductDataTable extends DataTable
                 return "<span class='badge " . $statusClass . "'>" . str()->title($status) . "</span>";
             })
             ->editColumn('price', function ($query) {
-                return $query->price . "$";
+                return $query->getPrice() . "$";
             })
             ->editColumn('status', function ($query) {
                 $value = $query->status == 'active' ? 1 : 0;

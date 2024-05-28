@@ -1,5 +1,9 @@
 @extends('admin.layouts.master')
 
+@section('title')
+    - Vendor Profile
+@endsection
+
 @section('content')
 <section class="section">
     <div class="section-header">
@@ -29,7 +33,7 @@
                         @include('admin.vendor-profile.form')
 
                         {!! Form::submit('Update', ['class' => 'btn btn-primary pull-right']) !!}
-                        
+
                         {{ Form::close() }}
 
                     </div>

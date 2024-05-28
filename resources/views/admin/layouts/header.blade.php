@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>General Dashboard &mdash; Stisla</title>
+    <title>
+        {{$setting->site_name}} @yield('title')
+    </title>
     <!-- meta csrf token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -48,8 +50,7 @@
 
         gtag('config', 'UA-94034622-3');
     </script>
-    <!-- /END GA -->
+    <!-- END GA -->
 
 </head>
-
 <body>
