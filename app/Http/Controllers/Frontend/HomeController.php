@@ -16,9 +16,11 @@ class HomeController extends Controller
             ->orderBy('serial', 'desc')->get();
 
         $flashSale = FlashSale::first();
-        
+
         $flashSaleItems = FlashSaleItem::with('product.mainCategory')
-            ->where('status', 'active')->where('show_at_home', 'yes')
+            ->orderBy('id', 'desc')
+            ->where('status', 'active')
+            ->where('show_at_home', 'yes')
             ->get();
 
         return view(

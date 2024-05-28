@@ -22,15 +22,15 @@
 
             <p>
                 ({!! $setting->currency_icon !!}{{ $item->price }} x {{ $item->qty }})
-                @if ($item->options->variantTotalAmount > 0)
-                + {!! $setting->currency_icon !!}{{ $item->options->variantTotalAmount }}
+                @if ($item->options->variantTotalPrice > 0)
+                + {!! $setting->currency_icon !!}{{ $item->options->variantTotalPrice * $item->qty }}
                 @endif
             </p>
 
             <hr class="my-2">
 
             <span class="badge bg-primary tex-light">
-                {!! $setting->currency_icon !!}{{ $item->price * $item->qty + $item->options->variantTotalAmount }}
+                {!! $setting->currency_icon !!}{{ ($item->price * $item->qty) + ($item->options->variantTotalPrice* $item->qty) }}
             </span>
         </div>
     </li>

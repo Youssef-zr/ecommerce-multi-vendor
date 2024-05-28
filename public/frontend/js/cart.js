@@ -22,7 +22,6 @@ let removeRowItem = (tr) => {
     }
 };
 
-
 // ajax csrf
 $.ajaxSetup({
     headers: {
@@ -49,8 +48,11 @@ let addToCart = (url, formData) => {
             }
         },
         error: function (xhr, status, error) {
-            if (error) {
-                toastr.error(error, "Oops!");
+            if (xhr.status == 409) {
+                error = xhr.responseJSON.message;
+                toastr.error(error);
+            } else {
+                toastr.error(error);
             }
         },
     });
@@ -73,11 +75,11 @@ let updateCartQty = (url, formData, options = {}) => {
         },
         error: function (xhr, status, error) {
             if (xhr.status == 409) {
-                error = xhr.responseJSON.msg;
+                error = xhr.responseJSON.message;
+                toastr.error(error);
+            } else {
                 toastr.error(error);
             }
-
-            swalFireMessage("Oops...", error, "error");
         },
     });
 };
@@ -85,17 +87,28 @@ let updateCartQty = (url, formData, options = {}) => {
 // delete cart item
 let deleteCartItem = (url, formData) => {
     return new Promise((resolve, reject) => {
-
-        Swal.fire( swalOptions( undefined, "This Action will delete prodcut from your cart !", "warning", true, undefined, undefined, "Yes, delete it!" ) )
-        .then((result) => {
+        Swal.fire(
+            swalOptions(
+                undefined,
+                "This Action will delete prodcut from your cart !",
+                "warning",
+                true,
+                undefined,
+                undefined,
+                "Yes, delete it!"
+            )
+        ).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
                     url,
                     type: "GET",
                     data: formData,
                     success(res, status, xhr) {
-                        if ( xhr.status >= 200 && xhr.status < 300 &&  res.status == "success" )
-                        {
+                        if (
+                            xhr.status >= 200 &&
+                            xhr.status < 300 &&
+                            res.status == "success"
+                        ) {
                             // message success
                             swalFireMessage("Removed!", res.message, "success");
 
@@ -109,7 +122,11 @@ let deleteCartItem = (url, formData) => {
                             resolve();
                         } else if (response.status == "error") {
                             //show message error
-                            swalFireMessage( "Opps...", "Something went wrong!", "error");
+                            swalFireMessage(
+                                "Opps...",
+                                "Something went wrong!",
+                                "error"
+                            );
 
                             // return promise error
                             reject();
@@ -130,36 +147,55 @@ let deleteCartItem = (url, formData) => {
                 });
             }
         });
-    })
-
+    });
 };
 
 // clear cart items
 let clearCartItems = (url) => {
-    Swal.fire( swalOptions( undefined, "This Action will clear your cart !", "warning", true, undefined, undefined, "clear it!" ) )
-    .then((result) => {
+    Swal.fire(
+        swalOptions(
+            undefined,
+            "This Action will clear your cart !",
+            "warning",
+            true,
+            undefined,
+            undefined,
+            "clear it!"
+        )
+    ).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
                 url,
                 type: "GET",
                 success(response, status, xhr) {
-                    if ( xhr.status >= 200 && xhr.status < 300 && response.status == "success" )
-                    {
+                    if (
+                        xhr.status >= 200 &&
+                        xhr.status < 300 &&
+                        response.status == "success"
+                    ) {
                         // message success
-                        swalFireMessage( "Cleared!", response.message, "success" );
+                        swalFireMessage(
+                            "Cleared!",
+                            response.message,
+                            "success"
+                        );
 
                         window.location.reload();
                     } else if (response.status == "error") {
-                        swalFireMessage( "Opps...", "Something went wrong!", "error" );
+                        swalFireMessage(
+                            "Opps...",
+                            "Something went wrong!",
+                            "error"
+                        );
                     }
                 },
                 error: function (xhr, status, error) {
                     if (xhr.status == 409) {
                         error = xhr.responseJSON.msg;
                         toastr.error(error);
+                    } else {
+                        swalFireMessage("Opps...", error, text);
                     }
-
-                    swalFireMessage("Opps...", error, text);
                 },
             });
         }

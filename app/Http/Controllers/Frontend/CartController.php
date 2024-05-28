@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Product;
 use App\Models\Backend\ProductVariantItem;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Cart;
@@ -17,6 +18,8 @@ class CartController extends Controller
         try {
 
             $product = Product::findOrFail($request->product_id);
+            $this->checkProductQtyStock($product, $request->qty);
+
             $cartData = $this->prepareCartData($product, $request->qty);
             Cart::add($cartData);
 
@@ -26,13 +29,13 @@ class CartController extends Controller
                 'cartCount' => $this->cartCount(),
                 'sidebarCartContent' => $this->sidebarCartContent(),
             ], Response::HTTP_CREATED);
+
         } catch (Exception $e) {
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to add item to cart',
-                'error' => $e->getMessage(),
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         }
     }
 
@@ -75,7 +78,7 @@ class CartController extends Controller
                 $totalAmount += $variantItem->price;
             }
 
-        return (object) ['variants' => $options, 'variantTotalAmount' => $totalAmount];
+        return (object) ['variants' => $options, 'variantTotalPrice' => $totalAmount];
     }
 
     // show cart details
@@ -86,18 +89,42 @@ class CartController extends Controller
         return view('frontend.pages.cart-detail', compact('cartItems'));
     }
 
+    // check product qty stock
+    public function checkProductQtyStock($product, $qty)
+    {
+        if ($product->qty == 0) {
+            throw new Exception('Product Out Of Stock!', 409);
+        } else if ($product->qty < $qty) {
+            throw new Exception('Quantity Not Available!', 409);
+        }
+    }
+
     // update product qty
     public function updateProductQty(Request $request)
     {
-        Cart::update($request->productRowId, $request->qty);
-        $totalAmount = $this->getProductTotalAmount($request->productRowId);
+        
+        try {
+            $product  = Product::findOrFail(Cart::get($request->productRowId)->id);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Product Quantity Updated',
-            'totalAmount' => $totalAmount,
-            'sidebarCartContent' => $this->sidebarCartContent(),
-        ], Response::HTTP_OK);
+            $this->checkProductQtyStock($product, $request->qty);
+
+            Cart::update($request->productRowId, $request->qty);
+            $totalAmount = $this->getProductTotalAmount($request->productRowId);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Product Quantity Updated',
+                'totalAmount' => $totalAmount,
+                'sidebarCartContent' => $this->sidebarCartContent(),
+            ], Response::HTTP_OK);
+
+        } catch (Exception $e) {
+
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], $e->getCode());
+        }
     }
 
     // get product total price
