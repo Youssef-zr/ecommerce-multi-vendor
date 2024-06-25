@@ -37,7 +37,7 @@ class UserAdressController extends Controller
         UserAdress::create($data);
 
         toastr('Adress Created Successfully!', 'success', 'Success');
-        return to_route('user.dashboard.adress.index');
+        return to_route('user.adress.index');
     }
 
     /**
@@ -66,7 +66,7 @@ class UserAdressController extends Controller
         $userAdress->update($request->validated());
 
         toastr('Adress Updated Successfully!', 'success', 'Success');
-        return to_route('user.dashboard.adress.index');
+        return to_route('user.adress.index');
     }
 
     /**

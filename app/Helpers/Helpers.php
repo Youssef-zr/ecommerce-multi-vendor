@@ -94,6 +94,86 @@ if (!function_exists('getCurrencyIcon')) {
     function getCurrencyIcon($currencyCode)
     {
         $currencyIcon = config('settings.currency_symbol.' . $currencyCode);
-        return $currencyIcon??'$';
+        return $currencyIcon ?? '$';
+    }
+}
+
+
+// calcualt cart subTotal
+if (!function_exists('getCartSubTotal')) {
+    function getCartSubTotal()
+    {
+
+        $total = 0;
+        foreach (Cart::content() as $item) {
+            $total += ($item->price + $item->options->variantTotalPrice) * $item->qty;
+        }
+
+        return $total;
+    }
+}
+
+
+
+// get payable total amount
+if (!function_exists('getMainCartTotal')) {
+    function getMainCartTotal()
+    {
+        if (session()->has('coupon')) {
+            $coupon = (object) session()->get("coupon");
+            $subTotal = getCartSubTotal();
+
+            if ($coupon->discount_type == 'amount') {
+                $total = $subTotal - $coupon->discount;
+                return $total;
+            } else if ($coupon->discount_type == 'percent') {
+                $discount = ($subTotal * $coupon->discount / 100);
+                $total = $subTotal - $discount;
+                return $total;
+            }
+        } else {
+            return getCartSubTotal();
+        }
+    }
+}
+
+// get cart discount when apply coupon
+if (!function_exists('getCartDiscount')) {
+    function getCartDiscount()
+    {
+        if (session()->has('coupon')) {
+            $coupon = (object) session()->get("coupon");
+            $subTotal = getCartSubTotal();
+
+            if ($coupon->discount_type == 'amount') {
+                return $coupon->discount;
+            } else if ($coupon->discount_type == 'percent') {
+                $discount = ($subTotal * $coupon->discount / 100);
+                return $discount;
+            }
+        } else {
+            return 0;
+        }
+    }
+}
+
+// get shipping method (fee)
+if (!function_exists('getShippingFee')) {
+    function getShippingFee()
+    {
+        if(session()->has('shipping_method')){
+            return session()->get('shipping_method')->cost;
+        }
+
+        return 0;
+    }
+}
+
+
+// get payable amount (fee + mainAmount)
+if (!function_exists('getFinalPayableAmount')) {
+    function getFinalPayableAmount()
+    {
+        return getMainCartTotal()  + getShippingFee();
     }
 }

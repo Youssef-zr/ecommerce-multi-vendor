@@ -22,7 +22,7 @@ class UpdateUserAdressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:200',
+            'name' => 'required|max:200|unique:user_adresses,name,' . request()->segments()[2],
             'email' => 'required|email',
             'phone' => 'required|numeric|max_digits:10',
             'country' => 'required|max:200',

@@ -100,7 +100,7 @@ class VendorProductVariantController extends Controller
     }
 
     /**
-     * Remove the procut
+     * Remove the product
      * 1-Remove the specified resource from storage.
      * 2-Remove the variants and subVariants (variantItems)
      *  1 and 2 was removed with productObserver deleting method

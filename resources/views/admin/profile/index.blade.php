@@ -26,8 +26,10 @@
                         <div class="card-body">
                             <div class="row">
                                 <!-- image field -->
-                                <div class="mb-3 img-thumbnail" style="width: 90px;height:90px">
-                                    <img src="{{ asset($auth->image) }}" alt="{{ $auth->name }}" style="max-width: 100%;object-fit: cover; ">
+                                <div class="col-12">
+                                    <div class="form-group mb-3 img-thumbnail" style="width: 90px;height:90px;border-radius:50%">
+                                        <img src="{{ asset($auth->image) }}" class="w-100 h-100" alt="{{ $auth->name }}" style="border-radius:50%">
+                                    </div>
                                 </div>
 
                                 <div class="form-group col-12">

@@ -36,7 +36,6 @@ class SellerProductController extends Controller
                 if (request()->has('approved')) {
                     $query->where('is_approved', request('approved'));
                 }
-
                 if (request()->has('status')) {
                     $query->where('status', request('status'));
                 }

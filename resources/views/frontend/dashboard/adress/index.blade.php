@@ -27,15 +27,15 @@
                                 <li><span>address :</span> {{ $userAdress->adress }}</li>
                             </ul>
                             <div class="wsus__address_btn">
-                                <a href="{{ route('user.dashboard.adress.edit',$userAdress->id) }}" class="edit"><i class="fal fa-edit"></i> edit</a>
-                                <a href="{{ route('user.dashboard.adress.destroy',$userAdress->id) }}" class="del bg-danger delete-btn"><i class="fal fa-trash-alt"></i> delete</a>
+                                <a href="{{ route('user.adress.edit',$userAdress->id) }}" class="edit"><i class="fal fa-edit"></i> edit</a>
+                                <a href="{{ route('user.adress.destroy',$userAdress->id) }}" class="del bg-danger delete-btn"><i class="fal fa-trash-alt"></i> delete</a>
                             </div>
                         </div>
                     </div>
                     @endforeach
 
                     <div class="col-12">
-                        <a href="{{ route('user.dashboard.adress.create') }}" class="add_address_btn common_btn">
+                        <a href="{{ route('user.adress.create') }}" class="add_address_btn common_btn">
                             <i class="far fa-plus"></i>
                             add new address
                         </a>

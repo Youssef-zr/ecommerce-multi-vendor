@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Backend\Adress;
+namespace App\Http\Requests\Frontend\Checkout;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserAdressRequest extends FormRequest
+class CompleteShippingOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +22,8 @@ class StoreUserAdressRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'name'=>'required|max:200|unique:user_adresses,name',
-           'email'=>'required|email',
-           'phone'=>'required|numeric|max_digits:10',
-           'country'=>'required|max:200',
-           'state'=>'required|max:200',
-           'city'=>'required|max:200',
-           'zip_code'=>'required',
-           'adress'=>'required',
+            'shipping-method' => 'required|int',
+            'shipping-adress' => 'required|int'
         ];
     }
 }

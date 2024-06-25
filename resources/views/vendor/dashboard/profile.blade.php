@@ -17,8 +17,9 @@
 
                     <div class="wsus__dash_pro_area">
 
-                        {{-- vendor information form --}}
-                        <form action="{{ route('vendor.dashboard.profile.update') }}" method="post" enctype="multipart/form-data">
+                        <!-- vendor information form -->
+                        <form action="{{ route('vendor.dashboard.profile.update') }}" method="post"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('put')
 
@@ -69,7 +70,7 @@
 
                         <hr class="my-5 d-block">
 
-                        {{-- password form  --}}
+                       <!-- password form  -->
                         <form action="{{ route('vendor.dashboard.password.update') }}" method="post">
                             @csrf
                             @method('put')

@@ -30,7 +30,7 @@
             <hr class="my-2">
 
             <span class="badge bg-primary tex-light">
-                {!! $setting->currency_icon !!}{{ ($item->price * $item->qty) + ($item->options->variantTotalPrice* $item->qty) }}
+                {!! $setting->currency_icon !!}{{ ($item->price + $item->options->variantTotalPrice) * $item->qty }}
             </span>
         </div>
     </li>
@@ -43,11 +43,11 @@
     @endforelse
 </ul>
 
-<h5>sub total <span>{!! $setting->currency_icon !!}{{ \Cart::total() }}</span></h5>
+<h5>sub total <span>{!! $setting->currency_icon !!}{{ getCartSubTotal() }}</span></h5>
 
 <div class="wsus__minicart_btn_area">
     <a class="common_btn" href="{{ route('frontend.cart.cart-details') }}">view cart</a>
-    <a class="common_btn" href="check_out.html">checkout</a>
+    <a class="common_btn" href="{{ route('user.checkout.index') }}">checkout</a>
 </div>
 
 

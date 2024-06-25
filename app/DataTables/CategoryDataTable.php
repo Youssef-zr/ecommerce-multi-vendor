@@ -40,7 +40,7 @@ class CategoryDataTable extends DataTable
 
                 $status = "
                 <label class='custom-switch mt-2'>
-                  <input type='checkbox' name='status' data-id='" . $query->id . "' class='custom-switch-input' " . $isChecked . ">
+                  <input type='checkbox' name='status' data-route='". route('dashboard.category.change-status') ."' data-id='" . $query->id . "' class='custom-switch-input' " . $isChecked . ">
                   <span class='custom-switch-indicator'></span>
                 </label>";
 

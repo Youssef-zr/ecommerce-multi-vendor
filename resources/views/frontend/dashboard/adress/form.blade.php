@@ -39,7 +39,7 @@
                 'placeholder' => 'phone',
             ]) !!}
             @if ($errors->any())
-                <code>{{ $errors->first('Phone') }}</code>
+                <code>{{ $errors->first('phone') }}</code>
             @endif
         </div>
     </div>
@@ -74,7 +74,7 @@
                 'placeholder' => 'state',
             ]) !!}
             @if ($errors->any())
-                <code>{{ $errors->first('State') }}</code>
+                <code>{{ $errors->first('state') }}</code>
             @endif
         </div>
     </div>
@@ -89,7 +89,7 @@
                 'placeholder' => 'city',
             ]) !!}
             @if ($errors->any())
-                <code>{{ $errors->first('City') }}</code>
+                <code>{{ $errors->first('city') }}</code>
             @endif
         </div>
     </div>
@@ -119,7 +119,7 @@
                 'placeholder' => 'adress',
             ]) !!}
             @if ($errors->any())
-                <code>{{ $errors->first('Adress') }}</code>
+                <code>{{ $errors->first('adress') }}</code>
             @endif
         </div>
     </div>

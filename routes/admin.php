@@ -13,11 +13,13 @@ use App\Http\Controllers\Backend\{
     ProductVariantController,
     ProductVariantItemController,
     ProfileController,
+    PaypalSettingController,
     SellerProductController,
     SliderController,
     SubCategoryController,
     FlashSaleController,
     GeneralSettingController,
+    PaymentSettingsController,
     ShippingRuleController
 };
 
@@ -76,11 +78,11 @@ Route::group(['prefix' => 'dashboard', 'as' => '.dashboard.', 'middleware' => ['
     Route::put('/product-variant-item-status', [ProductVariantItemController::class, 'changeStatus'])->name('product-variant-item.change-status');
 
     // coupons routes
-    Route::put('/coupon/change-status',[CouponController::class,'changeStatus'])->name('coupon.change-status');
+    Route::put('/coupon/change-status', [CouponController::class, 'changeStatus'])->name('coupon.change-status');
     Route::resource('/coupon', CouponController::class);
 
     // shippin gule routes
-    Route::put('/shipping-rule/change-status',[ShippingRuleController::class,'changeStatus'])->name('shipping-rule.change-status');
+    Route::put('/shipping-rule/change-status', [ShippingRuleController::class, 'changeStatus'])->name('shipping-rule.change-status');
     Route::resource('/shipping-rule', ShippingRuleController::class);
 
     // seller product show pending and approve status and filter and more...
@@ -99,6 +101,12 @@ Route::group(['prefix' => 'dashboard', 'as' => '.dashboard.', 'middleware' => ['
     // generale settings route
     Route::get('settings', [GeneralSettingController::class, 'index'])->name("settings.index");
     Route::put('general-settings-update/{id}', [GeneralSettingController::class, 'updateGeneralSetting'])->name("settings.update");
+
+    // payment settings routes
+    Route::get('payment-setting',[PaymentSettingsController::class,'index'])->name('payment-setting.index');
+    // paypal settings
+    Route::resource('paypal-setting', PaypalSettingController::class);
+
 });
 
 

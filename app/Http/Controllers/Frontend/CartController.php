@@ -3,33 +3,46 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Backend\Coupon;
 use App\Models\Backend\Product;
 use App\Models\Backend\ProductVariantItem;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Services\CouponService;
 use Cart;
 
 class CartController extends Controller
 {
+    protected $couponService;
+
+    public function __construct(CouponService $couponService)
+    {
+        $this->couponService = $couponService;
+    }
+
     // add to cart
     public function addToCart(Request $request)
     {
         try {
 
-            $product = Product::findOrFail($request->product_id);
-            $this->checkProductQtyStock($product, $request->qty);
 
-            $cartData = $this->prepareCartData($product, $request->qty);
-            Cart::add($cartData);
+            $product = Product::findOrFail($request->product_id); // find product
+
+            $cartItemQty = $this->prepareProductCartQty($product, $request->qty); // check and return cart item + request qty
+
+            $this->checkProductQtyStock($product, $cartItemQty); // check product qty stock
+
+            $cartData = $this->prepareCartData($product, $request->qty); // prepare cart data and options
+
+            Cart::add($cartData); // add to cart
 
             return response()->json([
                 'status' => 'success',
                 'message' => 'Added To Cart',
                 'cartCount' => $this->cartCount(),
-                'sidebarCartContent' => $this->sidebarCartContent(),
+                'sidebarHtmlCartContent' => $this->sidebarHtmlCartContent(),
             ], Response::HTTP_CREATED);
-
         } catch (Exception $e) {
 
             return response()->json([
@@ -90,21 +103,42 @@ class CartController extends Controller
     }
 
     // check product qty stock
-    public function checkProductQtyStock($product, $qty)
+    public function checkProductQtyStock(Product $product, int $qty)
     {
         if ($product->qty == 0) {
+
             throw new Exception('Product Out Of Stock!', 409);
         } else if ($product->qty < $qty) {
+
             throw new Exception('Quantity Not Available!', 409);
         }
+    }
+
+    // retrieve a cart item by product ID
+    public function getCartItemByProductId(int $productId)
+    {
+        return Cart::content()->filter(function ($item) use ($productId) {
+            return $item->id == $productId;
+        })->first();
+    }
+
+    // check cart item qty and prepare qty
+    public function prepareProductCartQty(Product $product, int $qty = 0)
+    {
+        $cartItemQty = $this->getCartItemByProductId($product->id)->qty ?? 0;
+
+        return $cartItemQty + $qty;
     }
 
     // update product qty
     public function updateProductQty(Request $request)
     {
-        
+
         try {
+
             $product  = Product::findOrFail(Cart::get($request->productRowId)->id);
+
+            $this->checkQtyAutorizedBeforeUpdate($product->id, $request->qty);
 
             $this->checkProductQtyStock($product, $request->qty);
 
@@ -115,15 +149,26 @@ class CartController extends Controller
                 'status' => 'success',
                 'message' => 'Product Quantity Updated',
                 'totalAmount' => $totalAmount,
-                'sidebarCartContent' => $this->sidebarCartContent(),
+                'sidebarHtmlCartContent' => $this->sidebarHtmlCartContent(),
+                'cartSubTotalHtmlContent' => $this->cartSubTotalHtmlContent(),
             ], Response::HTTP_OK);
-
         } catch (Exception $e) {
 
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
             ], $e->getCode());
+        }
+    }
+
+    // check the qty autorized before upate cart item qty
+    // for example cant update update when (cart item qty = 1 and request qty = 1)
+    public function checkQtyAutorizedBeforeUpdate(int $productId, int $qty)
+    {
+        $cartItemQty = $this->getCartItemByProductId($productId) ? $this->getCartItemByProductId($productId)->qty : null;
+
+        if ($cartItemQty != null and $cartItemQty == 1 and $qty == 1) {
+            throw new Exception('You Cant Update Qty to 0 !', 422);
         }
     }
 
@@ -142,23 +187,19 @@ class CartController extends Controller
         return Cart::content()->count();
     }
 
-    // sidebar cart items using with ajax requests (add and delete and update) cart items
-    public function sidebarCartContent()
-    {
-        return view(
-            'frontend.components.sidebar-shoping-cart',
-            ['sidebarCartItems' => Cart::content()]
-        )->render();
-    }
-
     // clear cart
     public function clearCart()
     {
         Cart::destroy();
+        session()->forget('coupon');
 
         return response()->json([
             'status' => 'success',
             'message' => 'Cart Cleared Successfully!',
+            'cartCount' => $this->cartCount(),
+            'sidebarHtmlCartContent' => $this->sidebarHtmlCartContent(),
+            'cartHtmlTableContent' => $this->cartHtmlTableContent(),
+            'cartSubTotalHtmlContent' => $this->cartSubTotalHtmlContent(),
         ], Response::HTTP_OK);
     }
 
@@ -171,7 +212,42 @@ class CartController extends Controller
             'status' => 'success',
             'message' => 'Item Deleted Successfully!',
             'cartCount' => $this->cartCount(),
-            'sidebarCartContent' => $this->sidebarCartContent(),
+            'sidebarHtmlCartContent' => $this->sidebarHtmlCartContent(),
+            'cartHtmlTableContent' => $this->cartHtmlTableContent(),
+            'cartSubTotalHtmlContent' => $this->cartSubTotalHtmlContent(),
+
         ], Response::HTTP_OK);
+    }
+
+    // apply coupon
+    public function applyCoupon(Request $request)
+    {
+        return $this->couponService->applyCoupon($request);
+    }
+
+
+    // sidebar cart items using with ajax requests (add and delete and update) cart items
+    public function sidebarHtmlCartContent()
+    {
+        return view(
+            'frontend.components.sidebar-shoping-cart',
+            ['sidebarCartItems' => Cart::content()]
+        )->render();
+    }
+
+    //  cart sub total view content using only with update in cart items page
+    public function cartSubTotalHtmlContent()
+    {
+        return view(
+            'frontend.components.cart-sub-total',
+        )->render();
+    }
+
+    // cart table items html view
+    public function cartHtmlTableContent()
+    {
+
+        return view('frontend.components.cart-table-items')
+            ->render();
     }
 }

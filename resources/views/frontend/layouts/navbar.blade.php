@@ -147,7 +147,7 @@
                     <ul class="wsus__menu_item wsus__menu_item_right">
                         <li><a href="contact.html">contact</a></li>
                         @if (auth()->check())
-                            <li><a href="{{ route('user.dashboard.profile.index') }}">my account</a></li>
+                            <li><a href="{{ route('user.profile.index') }}">my account</a></li>
                         @else
                             <li><a href="{{ route('login') }}">login</a></li>
                         @endif

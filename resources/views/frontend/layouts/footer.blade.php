@@ -136,10 +136,11 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('frontend/js/swal-custom.js') }}"></script>
 
-<!-- custom cart function -->
-<script src="{{ asset('frontend/js/cart.js') }}"></script>
+<!-- all cart methods here -->
+@include('frontend/components/cart-scripts');
 
 @stack('js')
+
 
 <!--main/custom js-->
 <script src="{{ asset('frontend/js/main.js') }}"></script>

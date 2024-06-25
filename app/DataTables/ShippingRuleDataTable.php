@@ -22,38 +22,38 @@ class ShippingRuleDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-        ->addColumn('action', function ($query) {
-            $btns = "<div class='btn-group'>";
-            $editBtn = "<a href='" . route('admin.dashboard.shipping-rule.edit', $query->id) . "' class='btn btn-primary btn-sm'><i class='fa fa-edit'></i></a>";
-            $deleteBtn = "<a href='" . route('admin.dashboard.shipping-rule.destroy', $query->id) . "' class='btn btn-danger btn-sm delete-btn'><i class='fa fa-trash'></i></a>";
-            $btns .= $editBtn . $deleteBtn;
-            $btns .= "</div>";
+            ->addColumn('action', function ($query) {
+                $editBtn = "<a href='" . route('admin.dashboard.shipping-rule.edit', $query->id) . "' class='btn btn-primary btn-sm mr-2'><i class='fa fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.dashboard.shipping-rule.destroy', $query->id) . "' class='btn btn-danger btn-sm delete-btn'><i class='fa fa-trash'></i></a>";
+                $btns = $editBtn . $deleteBtn;
 
-            return $btns;
-        })
-        ->editColumn('type',function($query){
-            $type = $query->type;
-            $typeReplace = str_replace('_',' ',$type);
-            $typeToUpper = strtoupper($typeReplace);
-            
-            return $typeToUpper;
-        })
+                return $btns;
+            })
+            ->editColumn('type', function ($query) {
+                $type = $query->type;
+                $typeReplace = str_replace('_', ' ', $type);
+                $typeToUpper = strtoupper($typeReplace);
 
-        ->editColumn('status', function ($query) {
-            $value = $query->status == 'active' ? 1 : 0;
-            $isChecked = $value == 1 ? "checked" : "";
+                return $typeToUpper == 'MIN COST'
+                    ? "<span class='badge bg-primary text-white'>Minmum Order Amount</span>"
+                    : "<span class='badge bg-success text-white'>Flat Amount</span>";
+            })
 
-            $status = "
+            ->editColumn('status', function ($query) {
+                $value = $query->status == 'active' ? 1 : 0;
+                $isChecked = $value == 1 ? "checked" : "";
+
+                $status = "
             <label class='custom-switch mt-2'>
               <input type='checkbox' name='status' data-id='" . $query->id . "' class='custom-switch-input' " . $isChecked . ">
               <span class='custom-switch-indicator'></span>
             </label>";
 
-            return $status;
-        })
+                return $status;
+            })
 
-        ->rawColumns(['name', 'status', "action"])
-        ->setRowId('id');
+            ->rawColumns(['name','type', 'status', "action"])
+            ->setRowId('id');
     }
 
     /**
@@ -61,7 +61,7 @@ class ShippingRuleDataTable extends DataTable
      */
     public function query(ShippingRule $model): QueryBuilder
     {
-        return $model->orderBy('id','desc')->newQuery();
+        return $model->orderBy('id', 'desc')->newQuery();
     }
 
     /**
@@ -70,20 +70,20 @@ class ShippingRuleDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('shippingrule-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('shippingrule-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**

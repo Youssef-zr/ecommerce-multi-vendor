@@ -6,7 +6,7 @@
         <div class="dashboard_content mt-2 mt-md-0">
             <h3><i class="fal fa-gift-card"></i>Update address</h3>
             <div class="wsus__dashboard_add wsus__add_address">
-                {!! Form::model($userAdress,['method' => 'Put', 'route' => ['user.dashboard.adress.update',$userAdress->id]]) !!}
+                {!! Form::model($userAdress,['method' => 'Put', 'route' => ['user.adress.update',$userAdress->id]]) !!}
                 @include('frontend.dashboard.adress.form')
                 <button type="submit" class="common_btn">Update</button>
                 {!! Form::close() !!}

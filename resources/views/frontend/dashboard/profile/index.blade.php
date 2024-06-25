@@ -22,7 +22,7 @@
                     <div class="wsus__dash_pro_area">
 
                         {{-- user information form --}}
-                        <form action="{{ route('user.dashboard.profile.update') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('user.profile.update') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('put')
 
@@ -74,7 +74,7 @@
                         <hr class="my-5 d-block">
 
                         {{-- password form  --}}
-                        <form action="{{ route('user.dashboard.password.update') }}" method="post">
+                        <form action="{{ route('user.password.update') }}" method="post">
                             @csrf
                             @method('put')
                             <h4 class="mb-4">Update Password</h4>

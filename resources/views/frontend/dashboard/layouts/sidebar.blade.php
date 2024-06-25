@@ -4,15 +4,15 @@
         <i class="far fa-bars dash_bar"></i>
         <i class="far fa-times dash_close"></i>
     </span>
-    <a href="{{ route('user.dashboard.index') }}" class="dash_logo"><img src="images/logo.png" alt="logo" class="img-fluid"></a>
+    <a href="{{ route('user.index') }}" class="dash_logo"><img src="images/logo.png" alt="logo" class="img-fluid"></a>
     <ul class="dashboard_link">
-        <li><a class="active" href="{{ route('user.dashboard.index') }}"><i class="fas fa-tachometer"></i>Dashboadrd</a></li>
+        <li><a class="active" href="{{ route('user.index') }}"><i class="fas fa-tachometer"></i>Dashboadrd</a></li>
         <li><a href="dsahboard_order.html"><i class="fas fa-list-ul"></i> Orders</a></li>
         <li><a href="dsahboard_download.html"><i class="far fa-cloud-download-alt"></i> Downloads</a></li>
         <li><a href="dsahboard_review.html"><i class="far fa-star"></i> Reviews</a></li>
         <li><a href="dsahboard_wishlist.html"><i class="far fa-heart"></i> Wishlist</a></li>
-        <li><a href="{{ route('user.dashboard.profile.index') }}"><i class="far fa-user"></i> My Profile</a></li>
-        <li><a href="{{ route('user.dashboard.adress.index') }}"><i class="fal fa-gift-card"></i> Address</a></li>
+        <li><a href="{{ route('user.profile.index') }}"><i class="far fa-user"></i> My Profile</a></li>
+        <li><a href="{{ route('user.adress.index') }}"><i class="fal fa-gift-card"></i> Address</a></li>
         <li>
             <!-- Authentication -->
             <form method="POST" action="{{ route('logout') }}">
