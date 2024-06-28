@@ -21,11 +21,9 @@ class CategoryDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $btns = "<div class='btn-group'>";
-                $editBtn = "<a href='" . route('admin.dashboard.category.edit', $query->id) . "' class='btn btn-primary btn-sm'><i class='fa fa-edit'></i></a>";
+                $editBtn = "<a href='" . route('admin.dashboard.category.edit', $query->id) . "' class='mr-2 btn btn-primary btn-sm'><i class='fa fa-edit'></i></a>";
                 $deleteBtn = "<a href='" . route('admin.dashboard.category.destroy', $query->id) . "' class='btn btn-danger btn-sm delete-btn'><i class='fa fa-trash'></i></a>";
-                $btns .= $editBtn . $deleteBtn;
-                $btns .= "</div>";
+                $btns = $editBtn . $deleteBtn;
 
                 return $btns;
             })
@@ -39,8 +37,8 @@ class CategoryDataTable extends DataTable
                 $isChecked = $value == 1 ? "checked" : "";
 
                 $status = "
-                <label class='custom-switch mt-2'>
-                  <input type='checkbox' name='status' data-route='". route('dashboard.category.change-status') ."' data-id='" . $query->id . "' class='custom-switch-input' " . $isChecked . ">
+                <label class='mt-2 custom-switch'>
+                  <input type='checkbox' name='status' data-route='". route('admin.dashboard.category.change-status') ."' data-id='" . $query->id . "' class='custom-switch-input' " . $isChecked . ">
                   <span class='custom-switch-indicator'></span>
                 </label>";
 

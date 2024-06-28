@@ -94,6 +94,7 @@
                 'class' => 'form-control',
                 'required' => 'required',
                 'placeholder' => 'Currency rate (Per USD)',
+                'step'=>".1"
                 ]) !!}
 
                 @if ($errors->any())

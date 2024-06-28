@@ -104,6 +104,7 @@ Route::group(['prefix' => 'dashboard', 'as' => '.dashboard.', 'middleware' => ['
 
     // payment settings routes
     Route::get('payment-setting',[PaymentSettingsController::class,'index'])->name('payment-setting.index');
+
     // paypal settings
     Route::resource('paypal-setting', PaypalSettingController::class);
 

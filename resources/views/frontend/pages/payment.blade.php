@@ -17,7 +17,7 @@
                     <h4>payment</h4>
                     <ul>
                         <li><a href="#">home</a></li>
-                        <li><a href="#">peoduct</a></li>
+                        <li><a href="#">product</a></li>
                         <li><a href="#">payment</a></li>
                     </ul>
                 </div>
@@ -53,7 +53,7 @@
                     <div class="tab-content" id="v-pills-tabContent" id="sticky_sidebar">
                         <!-- <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                             <div class="row">
-                                <div class="col-xl-12 m-auto">
+                                <div class="m-auto col-xl-12">
                                     <div class="wsus__payment_area">
                                         <form>
                                             <div class="wsus__pay_caed_header">
@@ -95,9 +95,9 @@
 
                         <!-- paypal tab -->
                         <div class="tab-pane active" id="v-pills-paypal" role="tabpanel" aria-labelledby="v-pills-paypal-tab">
-                            <form class="wsus__input_area">
-                                <button type="submit" class="common_btn w-100 d-block">Pay with paypal</button>
-                            </form>
+                            <div class="wsus__input_area">
+                                <a href="{{ route('user.paypal.payment') }}" class="text-center common_btn w-100 d-block">Pay with paypal</a>
+                            </div>
                         </div>
 
                         <!-- strip tab -->
